@@ -4,7 +4,11 @@ A beautiful, modern, drag-and-drop PDF merging desktop application built with **
 
 It runs completely offline and locally on your machine—your PDF files never leave your computer, ensuring absolute privacy and security.
 
+<img width="1920" height="1080" alt="app demonstration gif" src="https://github.com/user-attachments/assets/e0c55f95-5fb8-4756-8aa8-411b5883da6a" />
+
 ---
+
+
 
 ## 🖥️ How to Install & Use
 
