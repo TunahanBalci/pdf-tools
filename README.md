@@ -1,54 +1,77 @@
 # 📄 Portable PDF Merger
 
-A beautiful, drag-and-drop PDF merging app built with **React** and **Electron**.  
-💡 **No installation required** — just double-click the `.exe` and merge your PDFs instantly!
+A beautiful, modern, drag-and-drop PDF merging desktop application built with **React**, **Vite**, and **Electron**. 
 
-![screenshot1](https://github.com/user-attachments/assets/1c9809a3-c923-48db-a415-a42076c81e16)
-![screenshot2](https://github.com/user-attachments/assets/e11f9eac-cfdf-40a9-a92a-a9b8d7817758)
-![screenshot3](https://github.com/user-attachments/assets/37496a88-84c8-4806-a3f7-e8d9389725f9)
-
+It runs completely offline and locally on your machine—your PDF files never leave your computer, ensuring absolute privacy and security.
 
 ---
 
-## 🚀 Features
+## 🖥️ How to Install & Use
 
-✅ Select multiple PDF files with a single click  
-✅ Drag to reorder files before merging  
-✅ Remove unwanted files from the list  
-✅ Instant merge with animated success feedback  
-✅ Clean, responsive UI  
-✅ Portable `.exe` – runs without installing anything!
+You can download the latest precompiled versions for both Windows and Linux from the [Releases](https://github.com/TunahanBalci/pdf-merger/releases) section.
 
----
-
-## 🖥️ How to Use
-
-1. **Download** the `PDFMerge.exe` from the release.
-2. **Double-click** the file to run it. No install needed.
-3. Click **"Click to Add"** and select your PDF files.
-4. **Drag and reorder** if needed.
-5. Click **MERGE**.
-6. Download your new merged file!
+### 🪟 Windows (Portable Executable)
+1. Download the `PDFMerger-x.x.x.exe` file.
+2. **Double-click** the file to run it immediately. No installation or setup required!
+3. > [!NOTE]
+   > **Windows Defender SmartScreen**: Since the app is unsigned, Windows may show a *"Windows protected your PC"* popup. Click **"More info"** and then **"Run anyway"** to launch it.
 
 ---
 
-## 📦 Development Setup
+### 🐧 Linux (Ubuntu / Debian / Fedora / Arch)
 
-Want to tweak the code or build your own version?
+#### Option 1: Debian/Ubuntu Native Package (`.deb`) — Recommended
+This installs the app natively on your system and adds a shortcut to your desktop application menu:
+1. Download the `pdf-merger_x.x.x_amd64.deb` file.
+2. Install it using the terminal:
+   ```bash
+   sudo apt install ./pdf-merger_x.x.x_amd64.deb
+   ```
+3. Open your desktop menu, search for **PDFMerger**, and launch it!
+
+#### Option 2: Portable AppImage (`.AppImage`)
+Runs instantly on any Linux distribution without installing anything:
+1. Download the `PDFMerger-x.x.x.AppImage` file.
+2. Grant it execute permissions:
+   ```bash
+   chmod +x PDFMerger-x.x.x.AppImage
+   ```
+3. Run the AppImage.
+4. > [!TIP]
+   > **If it fails to open (FUSE 2 error)**: Modern distributions (like Ubuntu 22.04+ or Debian 12+) don't pre-install FUSE 2. You can install it using `sudo apt install libfuse2`, or bypass it by running the AppImage with the extract flag:
+   > ```bash
+   > ./PDFMerger-x.x.x.AppImage --appimage-extract-and-run
+   > ```
+
+---
+
+## 🚀 Key Features
+
+* **Drag-and-Drop Reordering**: Rearrange selected files dynamically with real-time card swapping.
+* **Smart PDF Validation**: Automatically checks that added files are valid PDFs.
+* **Floating Control Panel**: Track merge statistics (file count, total size) in real-time.
+* **Instant Merge Engine**: High-performance local merge powered by `pdf-lib`.
+* **Beautiful Revamped UI**: Modern dark theme with smooth animations, custom scrollbars, and a responsive glassmorphic design.
+
+---
+
+## 🛠️ Development Setup
+
+To run or package the app locally:
 
 ### Prerequisites
-
-- Node.js + npm
+* **Node.js** (v18+) & **npm**
 
 ### Installation
-
 ```bash
-git clone [https://github.com/TunahanBalci/pdf-merger.git]
+git clone https://github.com/TunahanBalci/pdf-merger.git
 cd pdf-merger
 npm install
 ```
 
-
-### ⚠️ NOTICE!
-
-As the project is completed, it hasn't been compiled to a single .EXE file yet. However, I intend to add the compiled version to the releases section very soon!
+### Commands
+* **Run web interface**: `npm run dev`
+* **Run desktop app (dev mode)**: `npm run electron:dev`
+* **Package desktop binaries locally (current host OS)**: `npm run electron:build`
+* **Package Linux-only binaries**: `npm run electron:build:linux`
+* **Package Windows-only binaries**: `npm run electron:build:win`
