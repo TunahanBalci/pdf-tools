@@ -164,7 +164,7 @@ export default function App() {
       >
         <div>
           <h1 style={{ fontSize: "28px", fontWeight: "700", letterSpacing: "-0.5px" }}>
-            PDF Tools
+            pdf-tools
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginTop: "4px" }}>
             Start selecting files to start :)
