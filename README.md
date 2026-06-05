@@ -24,7 +24,7 @@
 
 ## How to Install & Use
 
-You can download the latest precompiled versions for both Windows and Linux from the [Releases](https://github.com/TunahanBalci/pdf-merger/releases) section.
+You can download the latest precompiled versions for both Windows and Linux from the [Releases](https://github.com/TunahanBalci/pdf-tools/releases) section.
 
 ### Windows (Portable Executable)
 
@@ -95,8 +95,8 @@ To run or package the app locally:
 ### Installation
 
 ```bash
-git clone https://github.com/TunahanBalci/pdf-merger.git
-cd pdf-merger
+git clone https://github.com/TunahanBalci/pdf-tools.git
+cd pdf-tools
 npm install
 ```
 
