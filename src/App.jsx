@@ -164,10 +164,10 @@ export default function App() {
       >
         <div>
           <h1 style={{ fontSize: "28px", fontWeight: "700", letterSpacing: "-0.5px" }}>
-            📄 PDF Tools
+            PDF Tools
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginTop: "4px" }}>
-            Merge PDF files locally or convert Markdown to beautifully formatted PDFs securely.
+            Start selecting files to start :)
           </p>
         </div>
         {activeTab === "merge" && list.length > 0 && (
