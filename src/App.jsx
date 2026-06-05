@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import DragDropList from "./components/DragDropList";
 import MergePanel from "./components/MergePanel";
+import MdToPdfPanel from "./components/MdToPdfPanel";
 import { merge } from "./handle_pdf";
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState("merge");
   const [list, setList] = useState([]);
   const [mergedFile, setMergedFile] = useState(null);
   const [isMerging, setIsMerging] = useState(false);
@@ -136,11 +138,11 @@ export default function App() {
         maxWidth: "900px",
         margin: "0 auto",
       }}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
+      onDragOver={activeTab === "merge" ? handleDragOver : undefined}
+      onDragLeave={activeTab === "merge" ? handleDragLeave : undefined}
+      onDrop={activeTab === "merge" ? handleDrop : undefined}
     >
-      {/* Hidden file input */}
+      {/* Hidden file input for Merger */}
       <input
         type="file"
         accept=".pdf"
@@ -156,19 +158,19 @@ export default function App() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "40px",
+          marginBottom: "32px",
         }}
         className="animate-fade-in"
       >
         <div>
           <h1 style={{ fontSize: "28px", fontWeight: "700", letterSpacing: "-0.5px" }}>
-            📄 Portable PDF Merger
+            📄 PDF Tools
           </h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "14px", marginTop: "4px" }}>
-            Merge multiple PDF files locally and securely
+            Merge PDF files locally or convert Markdown to beautifully formatted PDFs securely.
           </p>
         </div>
-        {list.length > 0 && (
+        {activeTab === "merge" && list.length > 0 && (
           <button className="secondary-btn" onClick={triggerFileSelect}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -179,98 +181,134 @@ export default function App() {
         )}
       </header>
 
-      {/* Warnings & Errors */}
-      {warning && (
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "12px",
-            backgroundColor: "rgba(239, 68, 68, 0.1)",
-            border: "1px solid rgba(239, 68, 68, 0.2)",
-            color: "#fca5a5",
-            marginBottom: "24px",
-            fontSize: "15px",
-            fontWeight: "500",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-          className="animate-slide-up"
+      {/* Navigation Tab Switcher */}
+      <div className="tab-container">
+        <button
+          className={`tab-btn ${activeTab === "merge" ? "active" : ""}`}
+          onClick={() => setActiveTab("merge")}
         >
-          {warning}
-        </div>
-      )}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="M9 15h6M9 11h6M9 19h6"></path>
+          </svg>
+          Merge PDFs
+        </button>
+        <button
+          className={`tab-btn ${activeTab === "md2pdf" ? "active" : ""}`}
+          onClick={() => setActiveTab("md2pdf")}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Markdown to PDF
+        </button>
+      </div>
 
       {/* Main Content Area */}
       <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        {list.length === 0 ? (
-          /* Empty state / drop zone */
-          <div
-            onClick={triggerFileSelect}
-            className={`glass-panel animate-slide-up ${isDragOver ? "drag-over" : ""}`}
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "80px 40px",
-              border: "2px dashed var(--border-card)",
-              cursor: "pointer",
-              transition: "var(--transition-smooth)",
-              textAlign: "center",
-              minHeight: "350px",
-            }}
-          >
-            <div
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "24px",
-                background: "rgba(99, 102, 241, 0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--color-primary)",
-                marginBottom: "24px",
-                transition: "var(--transition-smooth)",
-                boxShadow: isDragOver ? "0 0 20px var(--color-primary-glow)" : "none",
-              }}
-            >
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="12" y1="18" x2="12" y2="12"></line>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
-              </svg>
-            </div>
-            <h2 style={{ fontSize: "20px", fontWeight: "600", marginBottom: "8px" }}>
-              {isDragOver ? "Drop files here!" : "Select PDF files to merge"}
-            </h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: "15px", maxWidth: "340px" }}>
-              Drag and drop your PDF files here, or click to browse files from your computer.
-            </p>
-          </div>
+        {activeTab === "merge" ? (
+          /* PDF Merger Work Flow */
+          <>
+            {/* Warnings & Errors */}
+            {warning && (
+              <div
+                style={{
+                  padding: "16px",
+                  borderRadius: "12px",
+                  backgroundColor: "rgba(239, 68, 68, 0.1)",
+                  border: "1px solid rgba(239, 68, 68, 0.2)",
+                  color: "#fca5a5",
+                  marginBottom: "24px",
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                className="animate-slide-up"
+              >
+                {warning}
+              </div>
+            )}
+
+            {list.length === 0 ? (
+              /* Empty state / drop zone */
+              <div
+                onClick={triggerFileSelect}
+                className={`glass-panel animate-slide-up ${isDragOver ? "drag-over" : ""}`}
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "80px 40px",
+                  border: "2px dashed var(--border-card)",
+                  cursor: "pointer",
+                  transition: "var(--transition-smooth)",
+                  textAlign: "center",
+                  minHeight: "350px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    borderRadius: "24px",
+                    background: "rgba(99, 102, 241, 0.1)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--color-primary)",
+                    marginBottom: "24px",
+                    transition: "var(--transition-smooth)",
+                    boxShadow: isDragOver ? "0 0 20px var(--color-primary-glow)" : "none",
+                  }}
+                >
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                  </svg>
+                </div>
+                <h2 style={{ fontSize: "20px", fontWeight: "600", marginBottom: "8px" }}>
+                  {isDragOver ? "Drop files here!" : "Select PDF files to merge"}
+                </h2>
+                <p style={{ color: "var(--text-secondary)", fontSize: "15px", maxWidth: "340px" }}>
+                  Drag and drop your PDF files here, or click to browse files from your computer.
+                </p>
+              </div>
+            ) : (
+              /* File List */
+              <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                <DragDropList list={list} setList={setList} formatBytes={formatBytes} />
+              </div>
+            )}
+
+            {/* Floating Merge Controls */}
+            {list.length > 0 && (
+              <MergePanel
+                totalCount={totalCount}
+                totalSize={formatBytes(totalSize)}
+                onMerge={handleMerge}
+                onClearAll={handleClearAll}
+                isMerging={isMerging}
+                mergedFile={mergedFile}
+                success={success}
+              />
+            )}
+          </>
         ) : (
-          /* File List */
-          <div className="animate-fade-in" style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <DragDropList list={list} setList={setList} formatBytes={formatBytes} />
-          </div>
+          /* Markdown to PDF Panel */
+          <MdToPdfPanel />
         )}
       </main>
-
-      {/* Floating Merge Controls */}
-      {list.length > 0 && (
-        <MergePanel
-          totalCount={totalCount}
-          totalSize={formatBytes(totalSize)}
-          onMerge={handleMerge}
-          onClearAll={handleClearAll}
-          isMerging={isMerging}
-          mergedFile={mergedFile}
-          success={success}
-        />
-      )}
     </div>
   );
 }

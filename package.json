@@ -1,11 +1,14 @@
 {
-  "name": "pdf-merger",
+  "name": "pdf-tools",
   "version": "1.0.0",
   "private": true,
-  "description": "A beautiful, portable drag-and-drop PDF merging application.",
+  "description": "Portable PDF toolkit for merging multiple PDFs and Markdown to PDF conversion.",
   "author": "Tunahan Balci <tunahan.balci@example.com>",
   "main": "main.js",
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "marked": "^18.0.5",
     "pdf-lib": "^1.17.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -19,20 +22,21 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "electron:dev": "vite & sleep 2 && electron .",
+    "electron:dev": "vite & sleep 2 && electron . --no-sandbox",
     "electron:build": "vite build && electron-builder",
     "electron:build:linux": "vite build && electron-builder --linux",
     "electron:build:win": "vite build && electron-builder --win"
   },
   "build": {
-    "appId": "com.pdfmerger.app",
-    "productName": "PDFMerger",
+    "appId": "com.pdftools.app",
+    "productName": "PDFTools",
     "directories": {
       "output": "dist_electron"
     },
     "files": [
       "dist/**/*",
       "main.js",
+      "preload.js",
       "package.json"
     ],
     "linux": {

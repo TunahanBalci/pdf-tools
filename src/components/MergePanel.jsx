@@ -24,14 +24,45 @@ export default function MergePanel({
     }
   }, [mergedFile]);
 
-  const handleDownload = () => {
-    if (!downloadUrl || !mergedFile) return;
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = mergedFile.name || "merged-document.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const isElectron = typeof window !== "undefined" && !!window.electronAPI;
+
+  const handleDownload = async () => {
+    if (!mergedFile) return;
+
+    if (isElectron) {
+      try {
+        const defaultName = mergedFile.name || "merged-document.pdf";
+        const filePath = await window.electronAPI.saveFileDialog(defaultName);
+        if (!filePath) return;
+
+        // Convert Blob to Base64 string
+        const blobToBase64 = (blob) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(",")[1]);
+            reader.onerror = (err) => reject(err);
+            reader.readAsDataURL(blob);
+          });
+        };
+
+        const base64Data = await blobToBase64(mergedFile);
+        const res = await window.electronAPI.writeFileToPath(filePath, base64Data);
+        if (!res.success) {
+          alert(`Failed to save PDF: ${res.error}`);
+        }
+      } catch (err) {
+        console.error("Failed to save merged PDF:", err);
+        alert(`An error occurred: ${err.message}`);
+      }
+    } else {
+      if (!downloadUrl) return;
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = mergedFile.name || "merged-document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
@@ -117,7 +148,7 @@ export default function MergePanel({
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              Download PDF
+              {isElectron ? "Save PDF" : "Download PDF"}
             </button>
             <button
               onClick={onClearAll}

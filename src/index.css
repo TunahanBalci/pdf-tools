@@ -179,3 +179,322 @@ body {
 .disable-select {
   user-select: none;
 }
+
+/* Navigation Tab Switcher */
+.tab-container {
+  display: flex;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-card);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+  margin-bottom: 28px;
+  width: fit-content;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tab-btn.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 10px var(--color-primary-glow);
+}
+
+/* Split Pane Workspace */
+.editor-workspace {
+  display: flex;
+  gap: 20px;
+  height: calc(100vh - 280px);
+  min-height: 480px;
+}
+
+.editor-pane, .preview-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+}
+
+.editor-textarea {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f1f5f9;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.editor-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+}
+
+.preview-container {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.2);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Paper Style for PDF Generation and Preview */
+.paper-page {
+  background: #ffffff;
+  color: #1a202c;
+  width: 100%;
+  max-width: 794px; /* A4 width at 96 DPI */
+  min-height: 1123px; /* A4 height at 96 DPI */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  transition: padding 0.2s ease;
+  text-align: left;
+}
+
+/* Markdown Rendering Styles */
+.markdown-body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 14px;
+  line-height: 1.5 !important;
+  white-space: normal !important;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  font-variant-ligatures: none !important;
+  font-feature-settings: "liga" 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.markdown-body * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body pre code {
+  font-family: ui-monospace, SFMono-Regular, SF-Mono, Menlo, Consolas, monospace !important;
+}
+
+.markdown-body strong,
+.markdown-body b,
+.markdown-body em,
+.markdown-body i,
+.markdown-body a {
+  display: inline !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+  vertical-align: baseline !important;
+}
+
+.markdown-body strong,
+.markdown-body b {
+  font-weight: 700 !important;
+}
+
+.markdown-body em,
+.markdown-body i {
+  font-style: italic !important;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.markdown-body h1 {
+  font-size: 1.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.markdown-body h2 {
+  font-size: 1.4em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.markdown-body h3 {
+  font-size: 1.2em;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #334155;
+  line-height: 1.5 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Style inline code blocks strictly to prevent vertical misalignment and shifts */
+.markdown-body :not(pre) > code {
+  display: inline !important;
+  vertical-align: baseline !important;
+  line-height: inherit !important;
+  padding: 1px 4px !important;
+  margin: 0 1px !important;
+  background-color: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 4px !important;
+  font-size: 85% !important;
+  color: #0f172a !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.markdown-body pre {
+  padding: 16px;
+  overflow: visible;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.markdown-body pre code {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: inherit;
+  white-space: inherit;
+  border: 0;
+  color: #0f172a;
+}
+
+.markdown-body blockquote {
+  padding: 0 1em;
+  color: #64748b;
+  border-left: 0.25em solid #cbd5e1;
+  margin: 0 0 16px 0;
+  font-style: italic;
+}
+
+.markdown-body ul, .markdown-body ol {
+  list-style-position: inside !important;
+  padding-left: 1em !important;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #334155;
+}
+
+.markdown-body li {
+  margin-top: 0.25em;
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: 0;
+  margin-bottom: 16px;
+  width: 100% !important;
+  table-layout: fixed !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.markdown-body table th, .markdown-body table td {
+  padding: 8px 13px;
+  border: 1px solid #e2e8f0;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+.markdown-body table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+}
+
+.markdown-body table tr {
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+}
+
+.markdown-body table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.markdown-body hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e2e8f0;
+  border: 0;
+}
+
+/* Template Selectors */
+.template-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.template-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--text-primary);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Settings bar */
+.settings-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  font-size: 13px;
+}
