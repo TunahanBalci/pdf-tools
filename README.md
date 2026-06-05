@@ -1,4 +1,4 @@
-# pdf-tools
+# PDF Tools
 
 <p align="center">
   <img width="72" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
@@ -30,8 +30,11 @@ You can download the latest precompiled versions for both Windows and Linux from
 
 1. Download the `pdf-tools-x.x.x.exe` file.
 2. **Double-click** the file to run it immediately. No installation or setup required!
-3. > [!NOTE]
-   > **Windows Defender SmartScreen**: Since the app is unsigned, Windows may show a *"Windows protected your PC"* popup. Click **"More info"** and then **"Run anyway"** to launch it.
+
+> [!NOTE]
+> **Windows Defender SmartScreen**: Since the app is unsigned, Windows may show a *"Windows protected your PC"* popup.<br>
+> Click **"More info"** and then **"Run anyway"** to launch it.
+
 
 ### Linux (Ubuntu / Debian / Fedora / Arch)
 
@@ -42,7 +45,7 @@ This installs the app natively on your system and adds a shortcut to your deskto
 1. Download the `pdf-tools_x.x.x_amd64.deb` file.
 2. Install it using the terminal:
    ```bash
-   sudo apt install ./pdf-tools_x.x.x_amd64.deb
+   sudo apt install ./pdf-tools_*_amd64.deb
    ```
 3. Open your desktop menu, search for **pdf-tools**, and launch it!
 
@@ -53,14 +56,15 @@ Runs instantly on any Linux distribution without installing anything:
 1. Download the `pdf-tools-x.x.x.AppImage` file.
 2. Grant it execute permissions:
    ```bash
-   chmod +x pdf-tools-x.x.x.AppImage
+   chmod +x pdf-tools-*.AppImage
    ```
 3. Run the AppImage.
-4. > [!TIP]
-   > **If it fails to open (FUSE 2 error)**: Modern distributions (like Ubuntu 22.04+ or Debian 12+) don't pre-install FUSE 2. You can install it using `sudo apt install libfuse2`, or bypass it by running the AppImage with the extract flag:
-   > ```bash
-   > ./pdf-tools-x.x.x.AppImage --appimage-extract-and-run
-   > ```
+> [!TIP]
+> **If it fails to open (FUSE 2 error)**: Modern distributions (like Ubuntu 22.04+ or Debian 12+) don't pre-install FUSE 2. <br>
+> You can install it using `sudo apt install libfuse2`, or **bypass it** by running the AppImage with the extract flag:
+> ```bash
+> ./pdf-tools-x.x.x.AppImage --appimage-extract-and-run
+> ```
 
 ---
 
@@ -78,11 +82,6 @@ Runs instantly on any Linux distribution without installing anything:
 * **Batch Markdown Conversion**: Add multiple `.md` files and convert them to PDFs in one workflow.
 * **Formatted PDF Output**: Preserves common Markdown formatting such as headings, lists, code blocks, quotes, tables, and links.
 * **Local Export Flow**: Save generated PDFs directly from the desktop app without uploading files anywhere.
-
-### Interface
-
-* **Beautiful Revamped UI**: Modern dark theme with smooth animations, custom scrollbars, and a responsive glassmorphic design.
-
 ---
 
 ## Development Setup
